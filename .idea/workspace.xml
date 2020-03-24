@@ -2,9 +2,9 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="tetris" targetName="3" />
-      <config projectName="tetris" targetName="2" />
       <config projectName="tetris" targetName="1" />
+      <config projectName="tetris" targetName="2" />
+      <config projectName="tetris" targetName="3" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -26,12 +26,13 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1ZXlYKB67n3gj9OkM3YYUJNkg2D" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/bin/git" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
@@ -46,7 +47,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.3">
+  <component name="RunManager" selected="CMake Application.1">
     <configuration name="1" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tetris" TARGET_NAME="1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="tetris" RUN_TARGET_NAME="1">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -80,7 +81,7 @@
       <updated>1584993365509</updated>
       <workItem from="1584993367091" duration="6094000" />
       <workItem from="1584999499127" duration="4176000" />
-      <workItem from="1585055406053" duration="2739000" />
+      <workItem from="1585055406053" duration="6975000" />
     </task>
     <servers />
   </component>

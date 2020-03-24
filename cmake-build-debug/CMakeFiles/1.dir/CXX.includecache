@@ -9,4 +9,6 @@
 /home/chendi/CLionProjects/tetris/main.cpp
 iostream
 -
+ncurses.h
+-
 
