@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/3.dir/trial_key_event.cpp.o  -o 3 -lncurses 

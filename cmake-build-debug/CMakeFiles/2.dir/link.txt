@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/2.dir/trial_timer.cpp.o  -o 2 -lpthread 
