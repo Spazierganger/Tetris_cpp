@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "1"
   "1.pdb"
+  "CMakeFiles/1.dir/block_realization.cpp.o"
   "CMakeFiles/1.dir/main.cpp.o"
 )
 

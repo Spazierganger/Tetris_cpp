@@ -3,7 +3,7 @@ project(tetris)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(1 main.cpp)
+add_executable(1 main.cpp block_def.h block_realization.cpp)
 add_executable(2 trial_timer.cpp)
 add_executable(3 trial_key_event.cpp)
 

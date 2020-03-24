@@ -6,9 +6,23 @@
 
 #IncludeRegexTransform: 
 
+/home/chendi/CLionProjects/tetris/block_def.h
+iostream
+-
+
+/home/chendi/CLionProjects/tetris/block_realization.cpp
+block_def.h
+/home/chendi/CLionProjects/tetris/block_def.h
+iostream
+-
+random
+-
+
 /home/chendi/CLionProjects/tetris/main.cpp
 iostream
 -
 ncurses.h
 -
+block_def.h
+/home/chendi/CLionProjects/tetris/block_def.h
 

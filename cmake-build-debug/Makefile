@@ -149,6 +149,33 @@ depend:
 	$(MAKE) -f CMakeFiles/2.dir/build.make CMakeFiles/2.dir/build
 .PHONY : 2/fast
 
+block_realization.o: block_realization.cpp.o
+
+.PHONY : block_realization.o
+
+# target to build an object file
+block_realization.cpp.o:
+	$(MAKE) -f CMakeFiles/1.dir/build.make CMakeFiles/1.dir/block_realization.cpp.o
+.PHONY : block_realization.cpp.o
+
+block_realization.i: block_realization.cpp.i
+
+.PHONY : block_realization.i
+
+# target to preprocess a source file
+block_realization.cpp.i:
+	$(MAKE) -f CMakeFiles/1.dir/build.make CMakeFiles/1.dir/block_realization.cpp.i
+.PHONY : block_realization.cpp.i
+
+block_realization.s: block_realization.cpp.s
+
+.PHONY : block_realization.s
+
+# target to generate assembly for a file
+block_realization.cpp.s:
+	$(MAKE) -f CMakeFiles/1.dir/build.make CMakeFiles/1.dir/block_realization.cpp.s
+.PHONY : block_realization.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -241,6 +268,9 @@ help:
 	@echo "... 1"
 	@echo "... rebuild_cache"
 	@echo "... 2"
+	@echo "... block_realization.o"
+	@echo "... block_realization.i"
+	@echo "... block_realization.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -176,6 +176,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/chendi/CLionProjects/tetris/block_def.h">
+			<Option target="1"/>
+		</Unit>
+		<Unit filename="/home/chendi/CLionProjects/tetris/block_realization.cpp">
+			<Option target="1"/>
+		</Unit>
 		<Unit filename="/home/chendi/CLionProjects/tetris/main.cpp">
 			<Option target="1"/>
 		</Unit>
