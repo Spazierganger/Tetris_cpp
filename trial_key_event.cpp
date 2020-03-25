@@ -10,6 +10,9 @@ using namespace std;
 int main(int argc, char **argv)
 {
     initscr();
+    int row, col;
+    getmaxyx(stdscr,row,col);
+    printw("Row = %d, Col = %d\n");
     raw();
     noecho();
     refresh();

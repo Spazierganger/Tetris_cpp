@@ -9,18 +9,14 @@
 /home/chendi/CLionProjects/tetris/block_def.h
 iostream
 -
-vector
--
 
-/home/chendi/CLionProjects/tetris/main.cpp
-iostream
--
-ncurses.h
--
+/home/chendi/CLionProjects/tetris/block_realization.cpp
 block_def.h
 /home/chendi/CLionProjects/tetris/block_def.h
-string
+iostream
 -
-vector
+random
+-
+ncurses.h
 -
 

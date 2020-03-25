@@ -5,6 +5,8 @@
 #include "block_def.h"
 #include <iostream>
 #include <random>
+#include <ncurses.h>
+#include <string>
 
 using namespace std;
 
@@ -19,5 +21,7 @@ Tetris_block::Tetris_block()
 
 void Tetris_block::echo_type()
 {
-    cout << this->block_type << endl;
+    char str[] = "The current block type is  ";
+    str[sizeof(str) - 2] = this->block_type;
+    mvprintw(max_row - 1, max_col / 2 - int(sizeof(str) / 2), str);
 }

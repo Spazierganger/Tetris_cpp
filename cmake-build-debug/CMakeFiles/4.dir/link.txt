@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/4.dir/block_realization.cpp.o  -o 4 -lncurses 
