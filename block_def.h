@@ -9,7 +9,17 @@
 #include <vector>
 using namespace std;
 extern int max_row, max_col;
-extern vector<vector<int>> map;
+
+class Map
+{
+private:
+    int map_rel_col, map_rel_row;
+
+public:
+    vector<vector<char>> map;
+    Map();
+    void plot_map();
+};
 
 class Tetris_block
 {

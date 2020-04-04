@@ -6,7 +6,6 @@
 using namespace std;
 
 int max_row, max_col; // get the screen size from ncurses, global
-vector<vector<int>> map;
 
 int main()
 {
@@ -36,21 +35,9 @@ int main()
 //    (*t1).echo_type();
 //    delete t1;
 
-    map.push_back({ 0, max_col / 2 - 11}); // left upper point
-    map.push_back({21, max_col / 2}); // right lower point
-    erase();
-    refresh();
-    for(int i = map[0][1]; i <= map[1][1]; i++)
-    {
-        mvaddch(map[0][0], i, '#');
-        mvaddch(map[1][0], i, '#');
-    }
-    for(int i = map[0][0]; i <= map[1][0]; i++)
-    {
-        mvaddch(i, map[0][1], '#');
-        mvaddch(i, map[1][1], '#');
-    }
-    refresh();
+    Map my_map;
+    my_map.plot_map();
+
     getch();
     endwin();
     return 0;

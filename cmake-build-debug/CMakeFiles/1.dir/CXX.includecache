@@ -12,15 +12,15 @@ iostream
 vector
 -
 
-/home/chendi/CLionProjects/tetris/main.cpp
+/home/chendi/CLionProjects/tetris/block_realization.cpp
+block_def.h
+/home/chendi/CLionProjects/tetris/block_def.h
 iostream
+-
+random
 -
 ncurses.h
 -
-block_def.h
-/home/chendi/CLionProjects/tetris/block_def.h
 string
--
-vector
 -
 
