@@ -18,6 +18,8 @@
       <change beforePath="$PROJECT_DIR$/block_def.h" beforeDir="false" afterPath="$PROJECT_DIR$/block_def.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/block_realization.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/block_realization.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/block_realization.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/block_realization.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -91,7 +93,7 @@
       <workItem from="1585055406053" duration="12935000" />
       <workItem from="1585129425325" duration="13226000" />
       <workItem from="1585941029653" duration="2426000" />
-      <workItem from="1586000331740" duration="3307000" />
+      <workItem from="1586000331740" duration="7373000" />
     </task>
     <servers />
   </component>

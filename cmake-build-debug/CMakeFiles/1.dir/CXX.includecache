@@ -24,3 +24,15 @@ ncurses.h
 string
 -
 
+/home/chendi/CLionProjects/tetris/main.cpp
+iostream
+-
+ncurses.h
+-
+block_def.h
+/home/chendi/CLionProjects/tetris/block_def.h
+string
+-
+vector
+-
+

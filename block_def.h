@@ -9,6 +9,7 @@
 #include <vector>
 using namespace std;
 extern int max_row, max_col;
+bool welcome();
 
 class Map
 {
@@ -26,12 +27,13 @@ class Tetris_block
 private:
     char block_type{};
     char type_list[7] = {'J', 'L', 'I', 'O', 'Z', 'S', 'T'};
-    vector<int> core;
-    vector<vector<int>> periphery;
 
 public:
+    vector<int> core;
+    vector<vector<int>> periphery;
     Tetris_block();
     void echo_type();
+    void plot_block();
 };
 
 #endif //TETRIS_BLOCK_DEF_H
