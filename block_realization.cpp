@@ -7,17 +7,20 @@
 #include <random>
 #include <ncurses.h>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
-Tetris_block::Tetris_block()
+Tetris_block::Tetris_block(int row, int col)
 {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, 6);  // c++11 random lib
 
     this->block_type = this->type_list[dis(gen)];
-    this->core = {1, max_col / 2 - 5};
+    this->core = {1, 5};
+    this->rel_row = row;
+    this->rel_col = col;
 
     vector<int> vec;
     switch(this->block_type)
@@ -91,11 +94,174 @@ void Tetris_block::echo_type()
 
 void Tetris_block::plot_block()
 {
-    mvaddch(this->core[0], this->core[1], '*');
-    mvaddch(this->periphery[0][0], this->periphery[0][1], '*');
-    mvaddch(this->periphery[1][0], this->periphery[1][1], '*');
-    mvaddch(this->periphery[2][0], this->periphery[2][1], '*');
+    mvaddch(this->rel_row + this->core[0],
+            this->rel_col + this->core[1], '*');
+    mvaddch(this->rel_row + this->periphery[0][0],
+            this->rel_col + this->periphery[0][1], '*');
+    mvaddch(this->rel_row + this->periphery[1][0],
+            this->rel_col + this->periphery[1][1], '*');
+    mvaddch(this->rel_row + this->periphery[2][0],
+            this->rel_col + this->periphery[2][1], '*');
     refresh();
+}
+
+bool Tetris_block::block_fall(Map *ptr)
+{
+    vector<vector<char >> map = (*ptr).map;
+    this->core[0] += 1;
+    this->periphery[0][0] += 1;
+    this->periphery[1][0] += 1;
+    this->periphery[2][0] += 1;
+
+    if(map[this->core[0]][this->core[1]] == '#' ||
+    map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
+    map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
+    map[this->periphery[2][0]][this->periphery[2][1]] == '#')
+    {
+        this->core[0] -= 1;
+        this->periphery[0][0] -= 1;
+        this->periphery[1][0] -= 1;
+        this->periphery[2][0] -= 1;
+
+        // refresh map if block is down to the ground
+        map[this->core[0]][this->core[1]] = '#';
+        map[this->periphery[0][0]][this->periphery[0][1]] = '#';
+        map[this->periphery[1][0]][this->periphery[1][1]] = '#';
+        map[this->periphery[2][0]][this->periphery[2][1]] = '#';
+        (*ptr).map = map;
+        return false;
+    }
+    return true;
+}
+
+bool Tetris_block::block_left(Map *ptr)
+{
+    this->core[1] -= 1;
+    this->periphery[0][1] -= 1;
+    this->periphery[1][1] -= 1;
+    this->periphery[2][1] -= 1;
+
+    vector<vector<char >> map = (*ptr).map;
+    if(map[this->core[0]][this->core[1]] == '#' ||
+       map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
+       map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
+       map[this->periphery[2][0]][this->periphery[2][1]] == '#')
+    {
+        this->core[1] += 1;
+        this->periphery[0][1] += 1;
+        this->periphery[1][1] += 1;
+        this->periphery[2][1] += 1;
+        return false;
+    }
+    return true;
+}
+
+bool Tetris_block::block_right(Map *ptr)
+{
+    this->core[1] += 1;
+    this->periphery[0][1] += 1;
+    this->periphery[1][1] += 1;
+    this->periphery[2][1] += 1;
+
+    vector<vector<char >> map = (*ptr).map;
+    if(map[this->core[0]][this->core[1]] == '#' ||
+       map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
+       map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
+       map[this->periphery[2][0]][this->periphery[2][1]] == '#')
+    {
+        this->core[1] -= 1;
+        this->periphery[0][1] -= 1;
+        this->periphery[1][1] -= 1;
+        this->periphery[2][1] -= 1;
+        return false;
+    }
+    return true;
+}
+
+bool Tetris_block::block_rotation(Map *ptr)
+{
+    if(this->block_type == 'O')
+        return true;
+
+    vector<vector<char >> map = (*ptr).map;
+
+    // try to rotate along one point as the centroid, if failed, try another
+    vector<vector<int>> center;
+    center.push_back(this->core);
+    for(int i = 0; i < 3; i ++)
+        center.push_back(this->periphery[i]);
+
+    // try rotate anti-clockwise with every centroid
+    int pre;
+    for(int i = 0; i < 4; i++)
+    {
+        pre = this->core[0];
+        this->core[0] = center[i][0] - (this->core[1] - center[i][1]);
+        this->core[1] = center[i][1] - (center[i][0] - pre);
+
+        for(int j = 0; j < 3; j++)
+        {
+            pre = this->periphery[j][0];
+            this->periphery[j][0] = center[i][0] - (this->periphery[j][1] - center[i][1]);
+            this->periphery[j][1] = center[i][1] - (center[i][0] - pre);
+        }
+
+        bool index_top = min({this->core[0], this->periphery[0][0],
+                              this->periphery[1][0], this->periphery[2][0]}) > 0;
+        bool index_left = min({this->core[1], this->periphery[0][1],
+                               this->periphery[1][1], this->periphery[2][1]}) > 0;
+        bool index_bot = max({this->core[0], this->periphery[0][0],
+                              this->periphery[1][0], this->periphery[2][0]}) < 21;
+        bool index_right = max({this->core[1], this->periphery[0][1],
+                                this->periphery[1][1], this->periphery[2][1]}) < 11;
+        bool collision = map[this->core[0]][this->core[1]] == '#' ||
+                         map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
+                         map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
+                         map[this->periphery[2][0]][this->periphery[2][1]] == '#';
+
+        if(index_top && index_left && index_right && index_bot && !collision)
+            return true;
+        else
+        {
+            // rotate clockwise back
+            pre = this->core[0];
+            this->core[0] = center[i][0] - (center[i][1] - this->core[1]);
+            this->core[1] = center[i][1] + (center[i][0] - pre);
+
+            for(int j = 0; j < 3; j++)
+            {
+                pre = this->periphery[j][0];
+                this->periphery[j][0] = center[i][0] - (center[i][1] - this->periphery[j][1]);
+                this->periphery[j][1] = center[i][1] + (center[i][0] - pre);
+            }
+        }
+    }
+    return false;
+}
+
+void Tetris_block::anti_clk_rot(Map *ptr)
+{
+    // primary version, doesn't consider collision or index out of range problem.
+    int pre;
+
+    for(int j = 0; j < 3; j++)
+    {
+        pre = this->periphery[j][0];
+        this->periphery[j][0] = this->core[0] - (this->periphery[j][1] - this->core[1]);
+        this->periphery[j][1] = this->core[1] - (this->core[0] - pre);
+    }
+}
+
+void Tetris_block::clk_rot(Map *ptr)
+{
+    int pre;
+
+    for(int j = 0; j < 3; j++)
+    {
+        pre = this->periphery[j][0];
+        this->periphery[j][0] = this->core[0] - (this->core[1] - this->periphery[j][1]);
+        this->periphery[j][1] = this->core[1] + (this->core[0] - pre);
+    }
 }
 
 Map::Map()
@@ -140,8 +306,18 @@ bool welcome()
 
     char str1[] = "Welcome to the Tetris game!\n";
     char str2[] = "Press any key to start game!\n";
+    char str3[] = "Game Play\n";
+    char str4[] = "W: rotate\n";
+    char str5[] = "S: accelerate the fall\n";
+    char str6[] = "A: move left\n";
+    char str7[] = "D: move right\n";
     mvprintw(0, max_col / 2 - int(sizeof(str1) / 2), str1);
     mvprintw(1, max_col / 2 - int(sizeof(str2) / 2), str2);
+    mvprintw(3, max_col / 2 - int(sizeof(str3) / 2), str3);
+    mvprintw(4, max_col / 2 - int(sizeof(str4) / 2), str4);
+    mvprintw(5, max_col / 2 - int(sizeof(str5) / 2), str5);
+    mvprintw(6, max_col / 2 - int(sizeof(str6) / 2), str6);
+    mvprintw(7, max_col / 2 - int(sizeof(str7) / 2), str7);
     refresh();
     getch();
     return true;
