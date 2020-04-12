@@ -6,17 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/chendi/CLionProjects/tetris/block_def.h
+/home/chendi/CLionProjects/tetris/trial_thread.cpp
 iostream
 -
-
-/home/chendi/CLionProjects/tetris/block_realization.cpp
-block_def.h
-/home/chendi/CLionProjects/tetris/block_def.h
-iostream
--
-random
--
-ncurses.h
+thread
 -
 

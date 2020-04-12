@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "4"
   "4.pdb"
-  "CMakeFiles/4.dir/block_realization.cpp.o"
+  "CMakeFiles/4.dir/trial_thread.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

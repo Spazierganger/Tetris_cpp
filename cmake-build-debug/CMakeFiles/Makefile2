@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/chendi/CLionProjects/tetris/cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/4.dir/all
 all: CMakeFiles/3.dir/all
 all: CMakeFiles/1.dir/all
 all: CMakeFiles/2.dir/all
@@ -60,6 +61,7 @@ all: CMakeFiles/2.dir/all
 .PHONY : all
 
 # The main recursive "clean" target.
+clean: CMakeFiles/4.dir/clean
 clean: CMakeFiles/3.dir/clean
 clean: CMakeFiles/1.dir/clean
 clean: CMakeFiles/2.dir/clean
@@ -70,6 +72,33 @@ clean: CMakeFiles/2.dir/clean
 preinstall:
 
 .PHONY : preinstall
+
+#=============================================================================
+# Target rules for target CMakeFiles/4.dir
+
+# All Build rule for target.
+CMakeFiles/4.dir/all:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/depend
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles --progress-num=8,9 "Built target 4"
+.PHONY : CMakeFiles/4.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/4.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/4.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/4.dir/rule
+
+# Convenience name for target.
+4 : CMakeFiles/4.dir/rule
+
+.PHONY : 4
+
+# clean rule for target.
+CMakeFiles/4.dir/clean:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/clean
+.PHONY : CMakeFiles/4.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/3.dir

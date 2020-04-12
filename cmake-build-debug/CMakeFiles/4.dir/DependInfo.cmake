@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/chendi/CLionProjects/tetris/block_realization.cpp" "/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/4.dir/block_realization.cpp.o"
+  "/home/chendi/CLionProjects/tetris/trial_thread.cpp" "/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/4.dir/trial_thread.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

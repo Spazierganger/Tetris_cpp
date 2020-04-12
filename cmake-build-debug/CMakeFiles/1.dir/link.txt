@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/1.dir/main.cpp.o CMakeFiles/1.dir/block_realization.cpp.o  -o 1 -lncurses 
+/usr/bin/c++  -g   CMakeFiles/1.dir/main.cpp.o CMakeFiles/1.dir/block_realization.cpp.o  -o 1 -lncurses -lpthread 

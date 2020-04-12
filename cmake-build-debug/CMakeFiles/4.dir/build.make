@@ -57,27 +57,27 @@ include CMakeFiles/4.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/4.dir/flags.make
 
-CMakeFiles/4.dir/block_realization.cpp.o: CMakeFiles/4.dir/flags.make
-CMakeFiles/4.dir/block_realization.cpp.o: ../block_realization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/4.dir/block_realization.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/4.dir/block_realization.cpp.o -c /home/chendi/CLionProjects/tetris/block_realization.cpp
+CMakeFiles/4.dir/trial_thread.cpp.o: CMakeFiles/4.dir/flags.make
+CMakeFiles/4.dir/trial_thread.cpp.o: ../trial_thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/4.dir/trial_thread.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/4.dir/trial_thread.cpp.o -c /home/chendi/CLionProjects/tetris/trial_thread.cpp
 
-CMakeFiles/4.dir/block_realization.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/4.dir/block_realization.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chendi/CLionProjects/tetris/block_realization.cpp > CMakeFiles/4.dir/block_realization.cpp.i
+CMakeFiles/4.dir/trial_thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/4.dir/trial_thread.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chendi/CLionProjects/tetris/trial_thread.cpp > CMakeFiles/4.dir/trial_thread.cpp.i
 
-CMakeFiles/4.dir/block_realization.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/4.dir/block_realization.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chendi/CLionProjects/tetris/block_realization.cpp -o CMakeFiles/4.dir/block_realization.cpp.s
+CMakeFiles/4.dir/trial_thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/4.dir/trial_thread.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chendi/CLionProjects/tetris/trial_thread.cpp -o CMakeFiles/4.dir/trial_thread.cpp.s
 
 # Object files for target 4
 4_OBJECTS = \
-"CMakeFiles/4.dir/block_realization.cpp.o"
+"CMakeFiles/4.dir/trial_thread.cpp.o"
 
 # External object files for target 4
 4_EXTERNAL_OBJECTS =
 
-4 : CMakeFiles/4.dir/block_realization.cpp.o
+4 : CMakeFiles/4.dir/trial_thread.cpp.o
 4 : CMakeFiles/4.dir/build.make
 4 : CMakeFiles/4.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 4"

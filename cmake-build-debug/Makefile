@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named 4
+
+# Build rule for target.
+4 : cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 4
+.PHONY : 4
+
+# fast build rule for target.
+4/fast:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/build
+.PHONY : 4/fast
+
+#=============================================================================
 # Target rules for targets named 3
 
 # Build rule for target.
@@ -230,6 +243,33 @@ trial_key_event.cpp.s:
 	$(MAKE) -f CMakeFiles/3.dir/build.make CMakeFiles/3.dir/trial_key_event.cpp.s
 .PHONY : trial_key_event.cpp.s
 
+trial_thread.o: trial_thread.cpp.o
+
+.PHONY : trial_thread.o
+
+# target to build an object file
+trial_thread.cpp.o:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/trial_thread.cpp.o
+.PHONY : trial_thread.cpp.o
+
+trial_thread.i: trial_thread.cpp.i
+
+.PHONY : trial_thread.i
+
+# target to preprocess a source file
+trial_thread.cpp.i:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/trial_thread.cpp.i
+.PHONY : trial_thread.cpp.i
+
+trial_thread.s: trial_thread.cpp.s
+
+.PHONY : trial_thread.s
+
+# target to generate assembly for a file
+trial_thread.cpp.s:
+	$(MAKE) -f CMakeFiles/4.dir/build.make CMakeFiles/4.dir/trial_thread.cpp.s
+.PHONY : trial_thread.cpp.s
+
 trial_timer.o: trial_timer.cpp.o
 
 .PHONY : trial_timer.o
@@ -263,6 +303,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... 4"
 	@echo "... 3"
 	@echo "... edit_cache"
 	@echo "... 1"
@@ -277,6 +318,9 @@ help:
 	@echo "... trial_key_event.o"
 	@echo "... trial_key_event.i"
 	@echo "... trial_key_event.s"
+	@echo "... trial_thread.o"
+	@echo "... trial_thread.i"
+	@echo "... trial_thread.s"
 	@echo "... trial_timer.o"
 	@echo "... trial_timer.i"
 	@echo "... trial_timer.s"

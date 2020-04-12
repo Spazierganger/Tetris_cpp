@@ -1,3 +1,4 @@
+/home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/4.dir
 /home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/3.dir
 /home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/chendi/CLionProjects/tetris/cmake-build-debug/CMakeFiles/1.dir

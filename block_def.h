@@ -18,6 +18,7 @@ public:
     vector<vector<char>> map;
     Map();
     void plot_map();
+    void map_refresh();
 };
 
 class Tetris_block

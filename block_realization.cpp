@@ -290,6 +290,30 @@ void Map::plot_map()
     refresh();
 }
 
+void Map::map_refresh()
+{
+    bool filled;
+    vector<char> blank_line = {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'};
+    for(auto row = this->map.end() - 2; row != this->map.begin(); row --)
+    {
+        filled = true;
+        for(char & col : (*row))
+        {
+            if(col == ' ')
+            {
+                filled = false;
+                break;
+            }
+        }
+        if(filled)
+        {
+            row = this->map.erase(row);
+            this->map.insert(this->map.begin() + 1, blank_line);
+            row += 1;  // or the iterator will miss one element
+        }
+    }
+}
+
 bool welcome()
 {
     if(max_row < 22 || max_col < 24)
