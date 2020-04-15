@@ -42,4 +42,6 @@ public:
     void clk_rot(Map * ptr);
 };
 
+bool game_over(Map * pmap, Tetris_block * pblk);
+
 #endif //TETRIS_BLOCK_DEF_H

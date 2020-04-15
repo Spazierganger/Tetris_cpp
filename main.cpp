@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <thread>
 using namespace std;
 
 int max_row, max_col; // get the screen size from ncurses, global
@@ -16,58 +17,55 @@ int main()
     getmaxyx(stdscr, max_row, max_col);  // 24, 80
 
     if(!welcome())  // too small screen
-        return 0;
+        return -1;
 
     Map my_map;
     Map *pMap;
     pMap = &my_map;
     my_map.plot_map();
 
-    auto *t1 = new Tetris_block(my_map.map_rel_row, my_map.map_rel_col);
-    (*t1).echo_type();
-    (*t1).plot_block();
-    char c = getch();
-    while(c != 'z')
+    Tetris_block *pBlk;
+    Tetris_block block(my_map.map_rel_row, my_map.map_rel_col);
+    pBlk = &block;
+//    thread t_fall(auto_falling(pMap, pBlk));
+//    t_fall.detach();
+
+    while(true)
     {
-        bool flag = true;
+        if(game_over(pMap, pBlk))
+            break;
+
+        block.plot_block();
+        char c = getch();
         switch(c)
         {
             case 'a':
-                (*t1).block_left(pMap);
+                block.block_left(pMap);
                 break;
             case 's':
-                if(!(*t1).block_fall(pMap))
-                {
-                    delete t1;
-                    flag = false;
-                }
+                block.block_fall(pMap);
                 break;
             case 'd':
-                (*t1).block_right(pMap);
+                block.block_right(pMap);
                 break;
             case 'w':
-                (*t1).block_rotation(pMap);
+                block.block_rotation(pMap);
                 break;
             case 'q':
-                (*t1).anti_clk_rot(pMap);
+                block.anti_clk_rot(pMap);
                 break;
             case 'e':
-                (*t1).clk_rot(pMap);
+                block.clk_rot(pMap);
                 break;
             default:
                 ;
         }
 
         my_map.plot_map();
+        block.plot_block();
         refresh();
-        if(!flag)
-            break;
-        (*t1).plot_block();
-        refresh();
-        c = getch();
     }
 
-    getch();
     endwin();
     return 0;
 }

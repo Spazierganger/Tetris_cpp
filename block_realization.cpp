@@ -129,6 +129,7 @@ bool Tetris_block::block_fall(Map *ptr)
         map[this->periphery[1][0]][this->periphery[1][1]] = '#';
         map[this->periphery[2][0]][this->periphery[2][1]] = '#';
         (*ptr).map = map;
+        (*ptr).map_refresh();
         return false;
     }
     return true;
@@ -345,4 +346,26 @@ bool welcome()
     refresh();
     getch();
     return true;
+}
+
+bool game_over(Map * pmap, Tetris_block * pblk)
+{
+    vector<vector<char>> map = (*pmap).map;
+
+    if (map[(*pblk).core[0]][(*pblk).core[1]] == '#' ||
+            map[(*pblk).periphery[0][0]][(*pblk).periphery[0][1]] == '#' ||
+            map[(*pblk).periphery[1][0]][(*pblk).periphery[1][1]] == '#' ||
+            map[(*pblk).periphery[2][0]][(*pblk).periphery[2][1]] == '#')
+    {
+        // end the thread
+        erase();
+        char gameover[] = "Game Over!\n";
+        char goodbye[] = "Press any key to exit.\n";
+        mvprintw(0, max_col / 2 - int(sizeof(gameover) / 2), gameover);
+        mvprintw(1, max_col / 2 - int(sizeof(goodbye) / 2), goodbye);
+        refresh();
+        getch();
+        return true;
+    }
+    return false;
 }
