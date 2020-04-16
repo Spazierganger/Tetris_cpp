@@ -8,64 +8,68 @@
 using namespace std;
 
 int max_row, max_col; // get the screen size from ncurses, global
+bool game_is_over{false};
+Map *pMap;
+Tetris_block *pBlk;
 
 int main()
 {
     initscr();
     raw();
     noecho();
+    curs_set(0);  // hide the curses
     getmaxyx(stdscr, max_row, max_col);  // 24, 80
 
+    timeout(-1);
     if(!welcome())  // too small screen
         return -1;
 
-    Map my_map;
-    Map *pMap;
-    pMap = &my_map;
-    my_map.plot_map();
+    timeout(100);  // wait 100 ms, if no input, timeout
 
-    Tetris_block *pBlk;
-    Tetris_block block(my_map.map_rel_row, my_map.map_rel_col);
-    pBlk = &block;
-//    thread t_fall(auto_falling(pMap, pBlk));
-//    t_fall.detach();
+    pMap = new Map();
+    pBlk = new Tetris_block();
+    thread t_fall(auto_falling);
+    t_fall.detach();
 
     while(true)
     {
-        if(game_over(pMap, pBlk))
+        if(game_is_over)
+//        if(game_is_over)
+        {
+            if(t_fall.joinable())
+                t_fall.join();  // let thread finish first
             break;
+        }
 
-        block.plot_block();
         char c = getch();
         switch(c)
         {
             case 'a':
-                block.block_left(pMap);
+                (*pBlk).block_left();
                 break;
             case 's':
-                block.block_fall(pMap);
+                if(!(*pBlk).block_fall())
+                {
+                    pBlk = new Tetris_block();
+                }
                 break;
             case 'd':
-                block.block_right(pMap);
+                (*pBlk).block_right();
                 break;
             case 'w':
-                block.block_rotation(pMap);
+                (*pBlk).block_rotation();
                 break;
             case 'q':
-                block.anti_clk_rot(pMap);
-                break;
-            case 'e':
-                block.clk_rot(pMap);
-                break;
+                game_is_over = true;
             default:
                 ;
         }
 
-        my_map.plot_map();
-        block.plot_block();
+        (*pMap).plot_map();
+        (*pBlk).plot_block();
         refresh();
     }
 
-    endwin();
+    bye();
     return 0;
 }

@@ -8,11 +8,15 @@
 #include <ncurses.h>
 #include <string>
 #include <algorithm>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
-Tetris_block::Tetris_block(int row, int col)
+Tetris_block::Tetris_block()
 {
+    int row{(*pMap).map_rel_row};
+    int col{(*pMap).map_rel_col};
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, 6);  // c++11 random lib
@@ -82,6 +86,7 @@ Tetris_block::Tetris_block(int row, int col)
             this->periphery.push_back(vec);
             break;
     }
+    game_over(this);
 }
 
 void Tetris_block::echo_type()
@@ -105,9 +110,9 @@ void Tetris_block::plot_block()
     refresh();
 }
 
-bool Tetris_block::block_fall(Map *ptr)
+bool Tetris_block::block_fall()
 {
-    vector<vector<char >> map = (*ptr).map;
+    vector<vector<char >> map = (*pMap).map;
     this->core[0] += 1;
     this->periphery[0][0] += 1;
     this->periphery[1][0] += 1;
@@ -128,21 +133,21 @@ bool Tetris_block::block_fall(Map *ptr)
         map[this->periphery[0][0]][this->periphery[0][1]] = '#';
         map[this->periphery[1][0]][this->periphery[1][1]] = '#';
         map[this->periphery[2][0]][this->periphery[2][1]] = '#';
-        (*ptr).map = map;
-        (*ptr).map_refresh();
+        (*pMap).map = map;
+        (*pMap).map_refresh();
         return false;
     }
     return true;
 }
 
-bool Tetris_block::block_left(Map *ptr)
+bool Tetris_block::block_left()
 {
     this->core[1] -= 1;
     this->periphery[0][1] -= 1;
     this->periphery[1][1] -= 1;
     this->periphery[2][1] -= 1;
 
-    vector<vector<char >> map = (*ptr).map;
+    vector<vector<char >> map = (*pMap).map;
     if(map[this->core[0]][this->core[1]] == '#' ||
        map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
        map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
@@ -157,14 +162,14 @@ bool Tetris_block::block_left(Map *ptr)
     return true;
 }
 
-bool Tetris_block::block_right(Map *ptr)
+bool Tetris_block::block_right()
 {
     this->core[1] += 1;
     this->periphery[0][1] += 1;
     this->periphery[1][1] += 1;
     this->periphery[2][1] += 1;
 
-    vector<vector<char >> map = (*ptr).map;
+    vector<vector<char >> map = (*pMap).map;
     if(map[this->core[0]][this->core[1]] == '#' ||
        map[this->periphery[0][0]][this->periphery[0][1]] == '#' ||
        map[this->periphery[1][0]][this->periphery[1][1]] == '#' ||
@@ -179,12 +184,12 @@ bool Tetris_block::block_right(Map *ptr)
     return true;
 }
 
-bool Tetris_block::block_rotation(Map *ptr)
+bool Tetris_block::block_rotation()
 {
     if(this->block_type == 'O')
         return true;
 
-    vector<vector<char >> map = (*ptr).map;
+    vector<vector<char >> map = (*pMap).map;
 
     // try to rotate along one point as the centroid, if failed, try another
     vector<vector<int>> center;
@@ -240,7 +245,7 @@ bool Tetris_block::block_rotation(Map *ptr)
     return false;
 }
 
-void Tetris_block::anti_clk_rot(Map *ptr)
+void Tetris_block::anti_clk_rot()
 {
     // primary version, doesn't consider collision or index out of range problem.
     int pre;
@@ -253,7 +258,7 @@ void Tetris_block::anti_clk_rot(Map *ptr)
     }
 }
 
-void Tetris_block::clk_rot(Map *ptr)
+void Tetris_block::clk_rot()
 {
     int pre;
 
@@ -282,9 +287,9 @@ void Map::plot_map()
 {
     erase();
     refresh();
-    for(int i = 0; i < this->map.size(); i++)
+    for(unsigned long i = 0; i < this->map.size(); i++)
     {
-        for(int j = 0; j < this->map[0].size(); j++)
+        for(unsigned long j = 0; j < this->map[0].size(); j++)
             mvaddch(this->map_rel_row + i, this->map_rel_col + j,
                     this->map[i][j]);
     }
@@ -348,9 +353,9 @@ bool welcome()
     return true;
 }
 
-bool game_over(Map * pmap, Tetris_block * pblk)
+bool game_over(Tetris_block * pblk)
 {
-    vector<vector<char>> map = (*pmap).map;
+    vector<vector<char>> map = (*pMap).map;
 
     if (map[(*pblk).core[0]][(*pblk).core[1]] == '#' ||
             map[(*pblk).periphery[0][0]][(*pblk).periphery[0][1]] == '#' ||
@@ -358,14 +363,37 @@ bool game_over(Map * pmap, Tetris_block * pblk)
             map[(*pblk).periphery[2][0]][(*pblk).periphery[2][1]] == '#')
     {
         // end the thread
-        erase();
-        char gameover[] = "Game Over!\n";
-        char goodbye[] = "Press any key to exit.\n";
-        mvprintw(0, max_col / 2 - int(sizeof(gameover) / 2), gameover);
-        mvprintw(1, max_col / 2 - int(sizeof(goodbye) / 2), goodbye);
-        refresh();
-        getch();
+        game_is_over = true;
         return true;
     }
     return false;
+}
+
+void auto_falling()
+{
+    curs_set(0);
+    while (!game_is_over)
+    {
+        if(!(*pBlk).block_fall())
+        {
+            pBlk = new Tetris_block();
+        }
+        (*pMap).plot_map();
+        (*pBlk).plot_block();
+        refresh();
+        this_thread::sleep_for(chrono::milliseconds(700));
+    }
+}
+
+void bye()
+{
+    erase();
+    char gameover[] = "Game Over!\n";
+    char goodbye[] = "Press any key to exit.\n";
+    mvprintw(0, max_col / 2 - int(sizeof(gameover) / 2), gameover);
+    mvprintw(1, max_col / 2 - int(sizeof(goodbye) / 2), goodbye);
+    refresh();
+    timeout(-1);  // unset the timeout gap, always wait for input
+    getch();
+    endwin();
 }

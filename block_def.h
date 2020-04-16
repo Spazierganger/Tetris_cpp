@@ -9,7 +9,9 @@
 #include <vector>
 using namespace std;
 extern int max_row, max_col;
+extern bool game_is_over;
 bool welcome();
+void bye();
 
 class Map
 {
@@ -31,17 +33,20 @@ public:
     int rel_row, rel_col;
     vector<int> core;
     vector<vector<int>> periphery;
-    Tetris_block(int row, int col);
+    Tetris_block();
     void echo_type();
     void plot_block();
-    bool block_fall(Map * ptr);
-    bool block_left(Map * ptr);
-    bool block_right(Map * ptr);
-    bool block_rotation(Map * ptr);
-    void anti_clk_rot(Map * ptr);
-    void clk_rot(Map * ptr);
+    bool block_fall();
+    bool block_left();
+    bool block_right();
+    bool block_rotation();
+    void anti_clk_rot();
+    void clk_rot();
 };
 
-bool game_over(Map * pmap, Tetris_block * pblk);
+void auto_falling();
+extern Map *pMap;
+extern Tetris_block *pBlk;
+bool game_over(Tetris_block *pblk=pBlk);
 
 #endif //TETRIS_BLOCK_DEF_H

@@ -19,6 +19,8 @@
       <change beforePath="$PROJECT_DIR$/block_def.h" beforeDir="false" afterPath="$PROJECT_DIR$/block_def.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/block_realization.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/block_realization.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/block_realization.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/block_realization.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,8 +44,8 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../untitled" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -86,7 +88,7 @@
     </list>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -107,6 +109,10 @@
       <workItem from="1586693969962" duration="49000" />
       <workItem from="1586697760562" duration="8776000" />
       <workItem from="1586978681225" duration="5532000" />
+      <workItem from="1587036779298" duration="13271000" />
+      <workItem from="1587062907326" duration="1133000" />
+      <workItem from="1587064092267" duration="251000" />
+      <workItem from="1587064354513" duration="1808000" />
     </task>
     <servers />
   </component>
