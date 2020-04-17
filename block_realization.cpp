@@ -10,18 +10,32 @@
 #include <algorithm>
 #include <thread>
 #include <chrono>
+#include <cstring>
 
 using namespace std;
 
-Tetris_block::Tetris_block()
+Tetris_block::Tetris_block(char next_blocktype)
 {
     int row{(*pMap).map_rel_row};
     int col{(*pMap).map_rel_col};
+
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, 6);  // c++11 random lib
 
-    this->block_type = this->type_list[dis(gen)];
+    if(next_blocktype == ' ')
+    {
+        // random the first one
+        this->block_type = this->type_list[dis(gen)];
+    }
+    else
+    {
+        // get the current one
+        this->block_type = next_blocktype;
+    }
+    // random the next one
+    this->next_block = this->type_list[dis(gen)];
+
     this->core = {1, 5};
     this->rel_row = row;
     this->rel_col = col;
@@ -89,12 +103,9 @@ Tetris_block::Tetris_block()
     game_over(this);
 }
 
-void Tetris_block::echo_type()
+char Tetris_block::echo_type()
 {
-    char str[] = "block type  ";
-    str[sizeof(str) - 2] = this->block_type;
-    mvprintw(1, max_col / 2 + 1, str);
-    refresh();
+    return this->block_type;
 }
 
 void Tetris_block::plot_block()
@@ -270,6 +281,11 @@ void Tetris_block::clk_rot()
     }
 }
 
+char Tetris_block::get_next_type()
+{
+    return this->next_block;
+}
+
 Map::Map()
 {
     this->map_rel_col = max_col / 2 - 11;
@@ -298,7 +314,8 @@ void Map::plot_map()
 
 void Map::map_refresh()
 {
-    bool filled;
+    bool filled{true};
+    int count{0};
     vector<char> blank_line = {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'};
     for(auto row = this->map.end() - 2; row != this->map.begin(); row --)
     {
@@ -316,8 +333,11 @@ void Map::map_refresh()
             row = this->map.erase(row);
             this->map.insert(this->map.begin() + 1, blank_line);
             row += 1;  // or the iterator will miss one element
+            count += 1;
         }
     }
+    if(count >= 1)
+        score += (int)pow(2, count - 1);
 }
 
 bool welcome()
@@ -341,6 +361,7 @@ bool welcome()
     char str5[] = "S: accelerate the fall\n";
     char str6[] = "A: move left\n";
     char str7[] = "D: move right\n";
+    char str8[] = "Q: quit game\n";
     mvprintw(0, max_col / 2 - int(sizeof(str1) / 2), str1);
     mvprintw(1, max_col / 2 - int(sizeof(str2) / 2), str2);
     mvprintw(3, max_col / 2 - int(sizeof(str3) / 2), str3);
@@ -348,6 +369,7 @@ bool welcome()
     mvprintw(5, max_col / 2 - int(sizeof(str5) / 2), str5);
     mvprintw(6, max_col / 2 - int(sizeof(str6) / 2), str6);
     mvprintw(7, max_col / 2 - int(sizeof(str7) / 2), str7);
+    mvprintw(8, max_col / 2 - int(sizeof(str8) / 2), str8);
     refresh();
     getch();
     return true;
@@ -376,10 +398,13 @@ void auto_falling()
     {
         if(!(*pBlk).block_fall())
         {
-            pBlk = new Tetris_block();
+            char next_type{(*pBlk).get_next_type()};
+            delete pBlk;
+            pBlk = new Tetris_block(next_type);
         }
         (*pMap).plot_map();
         (*pBlk).plot_block();
+        show_details();
         refresh();
         this_thread::sleep_for(chrono::milliseconds(700));
     }
@@ -388,12 +413,36 @@ void auto_falling()
 void bye()
 {
     erase();
-    char gameover[] = "Game Over!\n";
-    char goodbye[] = "Press any key to exit.\n";
+    char gameover[] = "Game Over!";
+    string scores = "Your final score is: " + to_string(score);
+    char charray_scores[scores.length() + 1];
+    strcpy(charray_scores, scores.c_str());
+    char goodbye[] = "Press any key to exit.";
+
     mvprintw(0, max_col / 2 - int(sizeof(gameover) / 2), gameover);
-    mvprintw(1, max_col / 2 - int(sizeof(goodbye) / 2), goodbye);
+    mvprintw(1, max_col / 2 - int(sizeof(charray_scores) / 2), charray_scores);
+    mvprintw(2, max_col / 2 - int(sizeof(goodbye) / 2), goodbye);
     refresh();
     timeout(-1);  // unset the timeout gap, always wait for input
     getch();
-    endwin();
+}
+
+void show_details()
+{
+    string type_block(1, (*pBlk).echo_type());
+    type_block = "Current block type " + type_block;
+    char * typeblock = (char *) type_block.c_str();
+
+    string next_type(1, (*pBlk).get_next_type());
+    next_type = "Next type " + next_type;
+    char * nexttype = (char *) next_type.c_str();
+
+    string cur_scores = "Current score is: " + to_string(score);
+    char * curscores = (char *) cur_scores.c_str();
+
+    mvprintw(0, max_col / 2 + 2, typeblock);
+    mvprintw(1, max_col / 2 + 2, nexttype);
+    mvprintw(2, max_col / 2 + 2, curscores);
+
+    refresh();
 }

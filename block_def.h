@@ -12,6 +12,7 @@ extern int max_row, max_col;
 extern bool game_is_over;
 bool welcome();
 void bye();
+extern int score;
 
 class Map
 {
@@ -27,14 +28,16 @@ class Tetris_block
 {
 private:
     char block_type{};
+    char next_block{};
     char type_list[7] = {'J', 'L', 'I', 'O', 'Z', 'S', 'T'};
 
 public:
     int rel_row, rel_col;
     vector<int> core;
     vector<vector<int>> periphery;
-    Tetris_block();
-    void echo_type();
+    explicit Tetris_block(char next_blocktype=' ');
+    char echo_type();
+    char get_next_type();
     void plot_block();
     bool block_fall();
     bool block_left();
@@ -48,5 +51,6 @@ void auto_falling();
 extern Map *pMap;
 extern Tetris_block *pBlk;
 bool game_over(Tetris_block *pblk=pBlk);
+void show_details();
 
 #endif //TETRIS_BLOCK_DEF_H

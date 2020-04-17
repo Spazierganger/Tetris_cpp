@@ -8,6 +8,7 @@
 using namespace std;
 
 int max_row, max_col; // get the screen size from ncurses, global
+int score{0};
 bool game_is_over{false};
 Map *pMap;
 Tetris_block *pBlk;
@@ -17,7 +18,6 @@ int main()
     initscr();
     raw();
     noecho();
-    curs_set(0);  // hide the curses
     getmaxyx(stdscr, max_row, max_col);  // 24, 80
 
     timeout(-1);
@@ -50,7 +50,9 @@ int main()
             case 's':
                 if(!(*pBlk).block_fall())
                 {
-                    pBlk = new Tetris_block();
+                    char next_type{(*pBlk).get_next_type()};
+                    delete pBlk;
+                    pBlk = new Tetris_block(next_type);
                 }
                 break;
             case 'd':
@@ -67,9 +69,11 @@ int main()
 
         (*pMap).plot_map();
         (*pBlk).plot_block();
+        show_details();
         refresh();
     }
 
     bye();
+    endwin();
     return 0;
 }
